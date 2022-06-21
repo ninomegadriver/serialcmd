@@ -1,29 +1,48 @@
 /*
- *  Simple code to connect to a serial tty, send over a command and print
- *  the output. To make it easier when you need a simple console command to
- *  control an arduino, for example, automacally detect its port and print
- *  the output to STDOUT.
+ *  Simple code to connect to a serial tty, send over a command and print the output.
+ *  The goal is to make it easier when you need a simple console tool to send a command
+ *  to an arduino for example, automatically detecting its port and print the output to STDOUT.
  *
  *  Nino MegaDriver - nino@nino.com.br
  *  http://www.megadriver
  *  License terms: Do whatever you want with it:D
- *
- *  Arduino LOOP example with sync:
- *  loop()
- *   {
- *     (...)
- *     Serial.write(0x00); // The sync char that this code uses
- *     while(!Serial.available() ){ } // Wait for a command over serial
- *     String input = Serial.readStringUntil('\n'); // Read it into a string
- *     if(input.equals("hello")){ // Process the commands
- *        Serial.println("Hello!");
- *     }else{
- *        Serial.println("Be polite, say something!");
- *     }
- *     (...)
- *     Serial.write(0x00); // Send the sync char again to tell it's finished
+ *  
+ *  Arduino example sketch:
+ ********************************************************************************************
+ *  void setup(){
+ *    // Initialize the serial port at 115200
+ *    Serial.begin(115200);
  *  }
  *
+ *  void loop() {
+ *    // Force output over serial by doing some flooding
+ *    // seding a char, 0x01, that won't be printed  
+ *    for(int i=0; i<50; i++) Serial.write(0x01);  
+ *
+ *    // Send a welcome message (that will get printed)
+ *    Serial.println("Say something...");   
+ *
+ *    // Send the sync char, 0x00
+ *    Serial.write(0x00);  
+ *
+ *    // Wait until a command is received over serial 
+ *    while(!Serial.available() ){ }  
+ *
+ *    // Read it to a string
+ *    String input = Serial.readStringUntil('\n');  
+ *
+ *    // Process it  
+ *    if(input.equals("hello")){  
+ *      Serial.println("Hello, how are you?");  
+ *    }else{  
+ *      Serial.println("Please say something that I can understand...");  
+ *    }  
+ *  
+ *    // (...) Do whatever mor you want then  
+ *    // Send the sync again to tell it's finished  
+ *    Serial.write(0x00);   
+ *  }  
+ ********************************************************************************************
  */
 
 #include <math.h>
