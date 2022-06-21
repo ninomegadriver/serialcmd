@@ -4,7 +4,7 @@ nino@nino.com.br
   
 Simple code to connect to a serial tty, send over a command and print
 the output. The goal is to make it easier when you need a simple console tool to
-send a command to an arduino for example, automacally detecting its port and print
+send a command to an arduino for example, automatically detecting its port and print
 the output to STDOUT.  
   
 Arduino example sketch:  
